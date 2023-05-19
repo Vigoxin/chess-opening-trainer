@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="board-holder">
+	<div id="board" style="width: 600px"></div>
+	<div id="prev-board" style="width: 600px;"></div>
+</div>
+
+
+<div class="info">
+	<textarea name="" id="pgn-text-area" cols="54" rows="30"></textarea>
+	<button id="import-pgn">Import PGN</button>
+	<button id="flip-board">Flip board</button>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+
+	<script type="text/javascript" src='/static/tree.js'></script>
+	<script type="text/javascript" src='/static/boardJSCustom.js'></script>
+	<script type="text/javascript" src='/static/checkmate.js'></script>
+		
+{% endblock %}

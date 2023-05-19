@@ -1,0 +1,289 @@
+body {
+	padding: 0;
+}
+
+* {
+	font-family: ariel, helvetica, sans-serif;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding: 20px;
+	background-color: #333;
+	display: flex;
+	justify-content: center;
+}
+
+.content {
+	width: 1000px;
+	display: grid;
+	grid-template-areas: 
+			"navbar navbar"
+			"board-holder info"
+			"undo-redo-bar undo-redo-bar";
+	grid-gap: 15px;
+}
+
+.middle-row {
+	display: flex;
+	justify-content: center;
+}
+
+.navbar {
+	grid-area: navbar;
+
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	width: 595px;
+	height: 100px;
+	background-color: #a86936;
+
+	border: outset 2px #b58863;
+
+}
+
+.undo-redo-bar {
+	grid-area: undo-redo-bar;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 0 20px;
+
+	width: 595px;
+	height: 50px;
+	background-color: #333;
+
+	border: outset 2px #b58863;
+	border: none;
+
+}
+
+.undo-redo-button {
+	height: 45px;
+	width: 85px;
+}
+
+.undo-redo-button path {
+	fill: #ccc;
+	cursor: pointer;
+}
+
+.undo-redo-button path:hover {
+	fill: #eee;
+}
+
+.undo-button {
+	transform: scaleX(-1);
+}
+
+.redo-button:active {
+	transform: translateY(2px);
+}
+
+.undo-button:active {
+	transform: translateY(2px) scaleX(-1);
+}
+
+.invisible {
+	visibility: hidden;
+}
+
+.navbar button {
+	padding: 20px 10px;
+
+	border: outset 2px white;
+	background-color: #f0d9b5;
+	width: 120px;
+
+	color: #a86936;
+	color: black;
+
+	font-weight: bold;
+	text-transform: uppercase;
+
+}
+
+.navbar button:hover {
+	background-color: #a86936;
+	color: #f0d9b5;
+}
+
+.prominent-button {
+	transform: scale(1.15);
+}
+
+.main {
+	display: flex;
+	justify-content: space-between;
+
+}
+
+.board-holder {
+	grid-area: board-holder;
+
+	width: 600px;
+	position: relative;
+
+}
+
+#prev-board {
+	position: absolute;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+}
+
+.info {
+	grid-area: info;
+
+	width: 400px;
+	height: 595px;
+	padding: 10px;
+	background-color: #777;
+
+}
+
+.question-box {
+	padding: 20px;
+}
+
+.question-text {
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+
+	color: white;
+}
+
+.answer-buttons {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.answer-button {
+	padding: 5px 10px;
+	font-weight: bold;
+	width: 100px;
+	height: 60px;
+	border: outset 2px white;
+	font-size: 20px;
+}
+
+	
+button {
+	cursor: pointer;
+	transition: 0.2s all;
+}
+
+button:hover {
+}
+
+button:focus {
+	outline: none;
+}
+
+button:active {
+	transform: translateY(2px);
+}
+
+.yes-button {
+	background-color: lightgreen;
+}
+.yes-button:hover {
+	background-color: limegreen;
+}
+
+.no-button {
+	background-color: #ff6666;
+}
+.no-button:hover {
+	background-color: red;
+}
+
+.reset-board-button {
+	background-color: #ccc;
+		font-size: 12px;
+		height: 30px;
+}
+.reset-board-button:hover {
+	background-color: #eee;
+}
+
+.score-box {
+	background-color: #777;
+	padding: 20px;
+	font-weight: bold;
+	text-align: center;
+	font-size: 20px;
+}
+
+progress {
+	width: 150px;
+	height: 30px;
+}
+
+.overall-score {
+	margin-bottom: 15px;
+}
+
+.score-components {
+	display: flex;
+	justify-content: space-around;
+}
+
+.score {
+	color: white;
+}
+
+.score-title {
+	margin-bottom: 5px;
+	color: black;
+}
+
+.percentage {
+	color: white;
+}
+
+.prev-question-box {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.auxiliary-info-button {
+	padding: 5px 10px;
+	width: 100px;
+	height: 60px;
+	border: dashed 2px black;
+	font-size: 12px;
+
+	background-color: #333;
+	color: #aaa;
+	text-align: center;
+
+}
+
+.highlight-square {
+	box-shadow: inset 0 0 10px 0 blue;
+}
+
+@media screen and (max-width: 1000px) {
+	.content {
+		grid-template-areas: 
+				"navbar"
+				"board-holder"
+				"undo-redo-bar"
+				"info";
+		width: 600px;
+	}
+
+	.info {
+		width: 595px;
+	}
+}

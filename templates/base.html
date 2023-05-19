@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<!-- Custom stylesheet -->
+		<link rel="stylesheet" href="/static/main.css">
+
+	<!-- Jquery -->
+		<script type="text/javascript" src='/static/lib/jquery-3.2.1.min.js'></script>
+		
+	<!-- Chess -->
+		<link rel="stylesheet" href="/static/lib/chessboardjs-1.0.0/css/chessboard-1.0.0.css">
+		<script src="/static/lib/chessboardjs-1.0.0/js/chessboard-1.0.0.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+		<div class="content">
+			
+					{% block main %}
+						
+					{% endblock %}
+
+			<nav class="undo-redo-bar">
+				<svg class="undo-redo-button undo-button" viewbox="0 0 6 6">
+					<path d="M 0 1 H 5 V 0 L 8 3 L 5 6 L 5 5 l -5 0"></path>
+				</svg>
+				<svg class="undo-redo-button redo-button" viewbox="0 0 6 6">
+					<path d="M 0 1 H 5 V 0 L 8 3 L 5 6 L 5 5 l -5 0"></path>
+				</svg>
+			</nav>
+		</div>
+
+
+{% block javascript %}
+
+{% endblock %}
+
+
+</body>
+</html>
