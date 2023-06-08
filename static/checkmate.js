@@ -21,6 +21,10 @@ $("#flip-board").on("click", function(){
 	flipBoard();
 })
 
+$("#starting-position").on("click", function(){
+	initialiseChessBoard();
+})
+
 document.addEventListener('keydown', (event) => {
 	var name = event.key;
 	var code = event.code;
@@ -61,6 +65,7 @@ function importPGN(pgn) {
 	}
 	currentNode = rootNode;
 	alert("PGN successfully imported");
+	initialiseChessBoard();
 
 	if (playingBlack) {
 		playNextMove();

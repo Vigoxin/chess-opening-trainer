@@ -163,12 +163,15 @@ function playNextMove () {
 
 function onSnapEnd () {
 	// board.position(game.fen());
-
+	console.log("Asdf");
 	manageStack();
 
 	if (currentNode.children.length === 0) {
-		setTimeout(alert("No more repertoire left"), 500);
-		initialiseChessBoard();
+		setTimeout(function(){
+			alert("No more repertoire left")
+			initialiseChessBoard();
+			// undo();
+		}, 100);
 		return;
 	}
 
@@ -177,17 +180,22 @@ function onSnapEnd () {
 		currentNode = currentNode.children.filter(x => x.contents === lastMove)[0];
 		
 		if (currentNode.children.length === 0) {
-			setTimeout(alert("No more repertoire left"), 500);
-			initialiseChessBoard();
+			setTimeout(function(){
+				alert("No more repertoire left")
+				// initialiseChessBoard();
+				undo();
+			}, 100);
 			return;
 		}
 
 		playNextMove();
 
 	} else {
-		setTimeout(alert("That move is not in your repertoire!"), 500);
-		currentNode = currentNode.children[0];
-		undo();
+		setTimeout(function(){
+			alert("That move is not in your repertoire!")
+			currentNode = currentNode.children[0];
+			undo();
+		}, 100);
 	}
 }
 
