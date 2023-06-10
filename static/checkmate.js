@@ -25,6 +25,11 @@ $("#starting-position").on("click", function(){
 	initialiseChessBoard();
 })
 
+$("#show-answer").on("click", function(){
+	toShow = currentNode.children.map(x => x.contents);
+	alert(`Moves in your repertoire are:\n${"\n- "+ toShow.join("\n- ")}`);
+})
+
 document.addEventListener('keydown', (event) => {
 	var name = event.key;
 	var code = event.code;
@@ -38,6 +43,9 @@ function importPGN(pgn) {
 	pgn = pgn.replace(/\s+/g, ' ').trim();
 	stack = [];
 	var currentNode = rootNode;
+	pgn = pgn.replace(/\[.*\]/g, "");
+	pgn = pgn.replace("*", "");
+	pgn = pgn.trim();
 	pgn = pgn.split(" ");
 	for (let move of pgn) {
 		components = move.split(/(?=[\(\)])|(?<=[\(\)])/g);
