@@ -1,5 +1,6 @@
 var orientation = "white";
 var	rootNode = new TreeNode("root");
+var allSequences = [];
 
 $(document).ready(function(){
 	nextQuestion();
@@ -71,6 +72,18 @@ function importPGN(pgn) {
 			// console.log("\n");
 		}
 	}
+	currentNode = rootNode;
+
+	if (currentNode.children.length === 0) {
+		alert("Unsuccessful import - PGN empty");
+		return;
+	}
+
+	depthFirstStack = [];
+	depthFirstStack.push(currentNode.children[0]);
+	// while (!(depthFirstStack.length === 0 && ))
+
+
 	currentNode = rootNode;
 	alert("PGN successfully imported");
 	initialiseChessBoard();

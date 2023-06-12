@@ -3,6 +3,7 @@ class TreeNode {
 		this.contents = contents;
 		this.children = [];
 		this.parent = parent;
+		this.traversed = false;
 	}
 
 	add(node) {

@@ -146,7 +146,7 @@ body {
 	height: 595px;
 	padding: 10px;
 	background-color: #777;
-
+	overflow-y: scroll;
 }
 
 .question-box {
@@ -176,6 +176,9 @@ body {
 	font-size: 20px;
 }
 
+ul {
+	padding-left: 20px;
+}
 	
 button {
 	cursor: pointer;
@@ -267,6 +270,10 @@ progress {
 	color: #aaa;
 	text-align: center;
 
+}
+
+#other-possible-moves {
+	margin-top: 10px;
 }
 
 .highlight-square {

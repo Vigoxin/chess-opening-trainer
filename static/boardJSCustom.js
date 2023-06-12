@@ -93,6 +93,8 @@ function undo() {
 		undo();
 	}
 
+	displayOtherPossibleMoves();
+
 }
 
 // function redo() {
@@ -147,15 +149,27 @@ function onDrop(source, target, piece) {
 
 }
 
+function displayOtherPossibleMoves() {
+	otherMovesHTML = currentNode.parent.children.map(function(x) {return "<li>" + x.contents + "</li>"});
+	$("#other-possible-moves-ul").html(otherMovesHTML);
+}
+
 function playNextMove () {
 	console.log(currentNode);
-	randomChildNode = currentNode.children[Math.floor(Math.random()*currentNode.children.length)];
+
+	if ($("input[type=radio][name=repeat]:checked").val() === "repeat") {
+		randomChildNode = currentNode.children[Math.floor(Math.random()*currentNode.children.length)];
+	} else {
+		randomChildNode = currentNode.children.filter(function(x) {return !x.traversed})[Math.floor(Math.random()*currentNode.children.length)];
+	}
 	currentNode = randomChildNode;
 	randomMove = randomChildNode.contents;
 
 	game.move(randomMove);
 	board.position(game.fen());
 	manageStack();
+	displayOtherPossibleMoves();
+	currentNode.traversed = true;
 
 	console.log(currentNode);
 	console.log("move on");
