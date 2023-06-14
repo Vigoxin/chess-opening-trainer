@@ -213,11 +213,12 @@ function onSnapEnd () {
 	// board.position(game.fen());
 	manageStack();
 
-	// If current node had no responses (only possible at beginning, when no PGN imported)
+	// If no move within my repertoire after opponent's last move
 	if (currentNode.children.length === 0) {
 		setTimeout(function(){
-			alert("No more repertoire left (after opponent's move)");
+			alert("No more repertoire left (after opponent's last move)");
 			initialiseChessBoard();
+			chooseNextSequence();
 			// undo();
 		}, 100);
 		return;
