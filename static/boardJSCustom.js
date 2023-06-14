@@ -178,6 +178,7 @@ function playNextMove() {
 
 $("input[type=radio][name=order]").on("input", function(){
 	setupNextSequence();
+	$("input[type=radio][name=order]").blur();
 });
 
 function setupNextSequence() {
