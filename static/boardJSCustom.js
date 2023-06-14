@@ -154,56 +154,99 @@ function displayOtherPossibleMoves() {
 	$("#other-possible-moves-ul").html(otherMovesHTML);
 }
 
-function playNextMove () {
+function playNextMove() {
 	console.log(currentNode);
 
-	if ($("input[type=radio][name=repeat]:checked").val() === "repeat") {
+	if ($("input[type=radio][name=order]:checked").val() === "random-every-single-move") {
 		randomChildNode = currentNode.children[Math.floor(Math.random()*currentNode.children.length)];
+		currentNode = randomChildNode;
+		randomMove = currentNode.contents;
 	} else {
-		randomChildNode = currentNode.children.filter(function(x) {return !x.traversed})[Math.floor(Math.random()*currentNode.children.length)];
+		indexOfCurrentNodeWithinCurrentSequence = currentSequence.indexOf(currentNode);
+		currentNode = currentSequence[indexOfCurrentNodeWithinCurrentSequence+1];
+		randomMove = currentNode.contents;
 	}
-	currentNode = randomChildNode;
-	randomMove = randomChildNode.contents;
 
 	game.move(randomMove);
 	board.position(game.fen());
 	manageStack();
 	displayOtherPossibleMoves();
-	currentNode.traversed = true;
 
 	console.log(currentNode);
 	console.log("move on");
 }
 
+$("input[type=radio][name=order]").on("input", function(){
+	setupNextSequence();
+});
+
+function setupNextSequence() {
+	if ($("input[type=radio][name=order]:checked").val() === "in-order") {
+		randomSequenceIndex = -1; // will become 0 during chooseNextSequence()
+		console.log(randomSequenceIndex);
+		chooseNextSequence();
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-can-repeat") {
+		chooseNextSequence();
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-dont-repeat") {
+		chooseNextSequence();
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-every-single-move") {
+		// Sequence irrelevant in this case
+	}
+}
+
+function chooseNextSequence() {
+	if ($("input[type=radio][name=order]:checked").val() === "in-order") {
+		randomSequenceIndex++;
+		currentSequence = allSequences[randomSequenceIndex];
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-can-repeat") {
+		randomSequenceIndex = Math.floor(Math.random()*allSequences.length);
+		currentSequence = allSequences.slice(randomSequenceIndex, randomSequenceIndex+1)[0]; // chooses a sequence from allSequences and keeps it in the list
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-dont-repeat") {
+		randomSequenceIndex = Math.floor(Math.random()*allSequences.length);
+		currentSequence = allSequences.splice(randomSequenceIndex, 1)[0]; // chooses a sequence from allSequences but removes it in the list
+	} else if ($("input[type=radio][name=order]:checked").val() === "random-every-single-move") {
+		// Sequence irrelevant in this case
+	}
+}
+
 function onSnapEnd () {
 	// board.position(game.fen());
-	console.log("Asdf");
 	manageStack();
 
+	// If current node had no responses (only possible at beginning, when no PGN imported)
 	if (currentNode.children.length === 0) {
 		setTimeout(function(){
-			alert("No more repertoire left")
+			alert("No more repertoire left (after opponent's move)");
 			initialiseChessBoard();
 			// undo();
 		}, 100);
 		return;
 	}
 
+	// If I play a move which is included in the repertoire, i.e. is a childNode to the current node
 	lastMove = game.history().slice(-1)[0];
 	if (currentNode.children.map(x => x.contents).includes(lastMove)) {
+		// Update current node to the move I played, within the tree
 		currentNode = currentNode.children.filter(x => x.contents === lastMove)[0];
 		
+		// If there is no opponent response to the move I made
 		if (currentNode.children.length === 0) {
 			setTimeout(function(){
-				alert("No more repertoire left")
+				alert("No more repertoire left (after your move)");
 				// initialiseChessBoard();
-				undo();
+				if ($("input[type=radio][name=order]:checked").val() === "random-every-single-move"){
+					undo();
+				} else {
+					initialiseChessBoard();
+					chooseNextSequence();
+				}
 			}, 100);
 			return;
 		}
 
 		playNextMove();
 
+	// If I play a move that is not in the repertoire, i.e. is not a childNode to the current node
 	} else {
 		setTimeout(function(){
 			alert("That move is not in your repertoire!")

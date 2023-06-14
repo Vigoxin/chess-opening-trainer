@@ -1,6 +1,9 @@
 var orientation = "white";
+var currentNode;
 var	rootNode = new TreeNode("root");
 var allSequences = [];
+var randomSequenceIndex;
+var currentSequence;
 
 $(document).ready(function(){
 	nextQuestion();
@@ -42,11 +45,15 @@ document.addEventListener('keydown', (event) => {
 
 function importPGN(pgn) {
 	pgn = pgn.replace(/\s+/g, ' ').trim();
-	stack = [];
-	var currentNode = rootNode;
+	var stack = [];
+	currentNode = rootNode;
 	pgn = pgn.replace(/\[.*\]/g, "");
 	pgn = pgn.replace("*", "");
 	pgn = pgn.trim();
+	if (pgn === "") {
+		alert("Unsuccessful import - PGN empty");
+		return;
+	}
 	pgn = pgn.split(" ");
 	for (let move of pgn) {
 		components = move.split(/(?=[\(\)])|(?<=[\(\)])/g);
@@ -74,14 +81,39 @@ function importPGN(pgn) {
 	}
 	currentNode = rootNode;
 
-	if (currentNode.children.length === 0) {
-		alert("Unsuccessful import - PGN empty");
-		return;
-	}
+
 
 	depthFirstStack = [];
-	depthFirstStack.push(currentNode.children[0]);
-	// while (!(depthFirstStack.length === 0 && ))
+	currentSequence = [];
+	// Start by putting any one of the graph's vertices on top of a stack.
+	depthFirstStack.push(currentNode);
+	currentSequence.push(currentNode);
+	depthFirstVisited = [];
+	while (depthFirstStack.length !== 0) {
+		// Take the top node of the stack
+		nextNode = depthFirstStack.pop();
+		// "Visit" this node this consists of adding its move into the current sequence
+			if (nextNode.idd > 0) {
+				// Remove all nodes at end of current sequence until the parent of nextNode is the last node in the sequence
+				while (currentSequence.slice(-1)[0].idd !== nextNode.parent.idd) {
+					currentSequence.pop();
+				}
+				currentSequence.push(nextNode);
+			}
+		// If visited node was a leaf node, add a copy of currentSequence into allSequences
+		if (nextNode.children.length === 0) {
+			allSequences.push(currentSequence.slice(1,currentSequence.length));
+		}
+		//  Add visited node to the visited list.
+		depthFirstVisited.push(nextNode.idd);
+		// Create a list of that vertex's adjacent nodes. Add the ones which aren't in the visited list to the top of the stack.
+		for (let node of nextNode.children) {
+			if (!depthFirstVisited.includes(node.idd)) {
+				depthFirstStack.push(node);
+			}
+		}
+	}
+
 
 
 	currentNode = rootNode;

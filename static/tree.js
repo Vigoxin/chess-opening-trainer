@@ -1,9 +1,12 @@
+var TreeNodeIdentifierNumber = 0;
+
 class TreeNode {
 	constructor(contents, parent) {
 		this.contents = contents;
+		this.idd = TreeNodeIdentifierNumber;
+		TreeNodeIdentifierNumber++;
 		this.children = [];
 		this.parent = parent;
-		this.traversed = false;
 	}
 
 	add(node) {
