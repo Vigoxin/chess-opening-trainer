@@ -155,7 +155,7 @@ function displayOtherPossibleMoves() {
 }
 
 function playNextMove() {
-	console.log(currentNode);
+	// console.log(currentNode);
 
 	if ($("input[type=radio][name=order]:checked").val() === "random-every-single-move") {
 		randomChildNode = currentNode.children[Math.floor(Math.random()*currentNode.children.length)];
@@ -172,8 +172,8 @@ function playNextMove() {
 	manageStack();
 	displayOtherPossibleMoves();
 
-	console.log(currentNode);
-	console.log("move on");
+	// console.log(currentNode);
+	// console.log("move on");
 }
 
 $("input[type=radio][name=order]").on("input", function(){
