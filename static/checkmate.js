@@ -44,6 +44,7 @@ document.addEventListener('keydown', (event) => {
 }, false);
 
 function importPGN(pgn) {
+	pgn = pgn.replace(/\{[^}]*\}/g, "");
 	pgn = pgn.replace(/\s+/g, ' ').trim();
 	var stack = [];
 	currentNode = rootNode;
@@ -55,6 +56,9 @@ function importPGN(pgn) {
 		return;
 	}
 	pgn = pgn.split(" ");
+	
+	// console.log(pgn.join("\n"));
+
 	for (let move of pgn) {
 		components = move.split(/(?=[\(\)])|(?<=[\(\)])/g);
 		for (let c of components) {
