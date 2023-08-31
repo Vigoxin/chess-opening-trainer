@@ -132,11 +132,13 @@ function onDragStart(source, piece, position, orientation) {
 
 function onDrop(source, target, piece) {
 	// see if the move is legal
-	var move = game.move({
+	moveDict = {
 		from: source,
 		to: target,
-		promotion: $("input[type=radio][name=promote]:checked").val() // NOTE: always promote to a queen for simplicity
-	})
+		promotion: $("input[type=radio][name=promote]:checked").val()
+	}
+	console.log(moveDict);
+	var move = game.move(moveDict);
 	// illegal move
 	if (move === null) {return 'snapback'}
 
@@ -180,6 +182,12 @@ $("input[type=radio][name=order]").on("input", function(){
 	setupNextSequence();
 	$("input[type=radio][name=order]").blur();
 });
+
+$("input[type=radio][name=promote]").on("input", function() {
+	$("input[type=radio][name=promote]").blur();
+})
+
+
 
 function setupNextSequence() {
 	if ($("input[type=radio][name=order]:checked").val() === "in-order") {
