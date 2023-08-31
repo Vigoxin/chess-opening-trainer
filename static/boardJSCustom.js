@@ -135,7 +135,7 @@ function onDrop(source, target, piece) {
 	var move = game.move({
 		from: source,
 		to: target,
-		promotion: 'q' // NOTE: always promote to a queen for simplicity
+		promotion: $("input[type=radio][name=promote]:checked").val() // NOTE: always promote to a queen for simplicity
 	})
 	// illegal move
 	if (move === null) {return 'snapback'}

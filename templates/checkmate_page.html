@@ -9,12 +9,16 @@
 
 
 <div class="info">
+	<input type="radio" id="promote-to-queen" name="promote" value="q" checked="checked"> <label for="promote-to-queen">Promote to queen</label>
+	<input type="radio" id="promote-to-knight" name="promote" value="n"> <label for="promote-to-knight">Promote to knight</label>
+	<br>
 	<textarea name="" id="pgn-text-area" cols="54" rows="20"></textarea>
 	<button id="import-pgn">Import PGN</button>
 	<button id="flip-board">Flip board</button>
 	<button id="starting-position">Starting position</button>
 	<button id="show-answer">Show answer</button>
 	<br>
+	<input type="radio" id="order-checkbox-random-dont-repeat" name="order" value="random-dont-repeat"> <label for="order-checkbox-random-dont-repeat">Random without repeat</label><br>
 	<input type="radio" id="order-checkbox-random-every-single-move" name="order" value="random-every-single-move" checked=checked> <label for="order-checkbox-random-every-single-move">Random every single move</label><br>
 	<input type="radio" id="order-checkbox-random-can-repeat" name="order" value="random-can-repeat"> <label for="order-checkbox-random-can-repeat">Random with repeat</label><br>
 	<input type="radio" id="order-checkbox-random-dont-repeat" name="order" value="random-dont-repeat"> <label for="order-checkbox-random-dont-repeat">Random without repeat</label><br>
